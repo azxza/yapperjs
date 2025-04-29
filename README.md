@@ -1,2 +1,3 @@
-# yapperjs
-awaitable dialog api for react 
+# YAPPERJS
+
+A moden and proper api for consuming dialogs in react.
