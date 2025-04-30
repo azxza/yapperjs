@@ -17,7 +17,7 @@ export const PromptDialog: FC<DialogContentProps<string> & {
             <button className="yapper__dialog_prompt__header__cancel_button" onClick={cancel}>X</button>
         </div>
         <label className="yapper__dialog_prompt__message">{message}</label>
-        <input className="yapper__dialog_prompt__input" value={userInput} onChange={(e) => setUserInput(e.target.value)}/>
+        <input className="yapper__dialog_prompt__input" value={userInput} onChange={(e) => setUserInput((e.target as HTMLInputElement).value)}/>
         <div className="yapper__dialog_prompt__footer">
             <button className="yapper__dialog_prompt__submit" onClick={() => resolve(userInput)}>Submit</button>
         </div>

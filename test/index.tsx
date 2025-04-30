@@ -5,7 +5,7 @@ import { useYapperDialog } from '../src';
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
 const App = () => {
-    const dialogApi = useYapperDialog({});
+    const dialogApi = useYapperDialog();
     return <div>
         <div>hello world</div>
         <button onClick={async () => {
@@ -13,6 +13,11 @@ const App = () => {
             alert(confirmResult);
             const promptResult = await dialogApi.prompt('this is a prompt', 'with title');
             alert(promptResult);
+            dialogApi.showDialog<void, object>({
+                content: ({resolve}) => <div>
+                    <button onClick={() => resolve()}>CLICK</button>
+                </div>
+            })
         }}>TEST</button>
         <dialogApi.renderer/>
     </div>;

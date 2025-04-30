@@ -10,7 +10,9 @@ export type UseYapperDialogOptions = {
     layerGetter?: () => HTMLElement;
 };
 
-export const useYapperDialog = ({ layerGetter }: UseYapperDialogOptions): DialogApi => {
+const defualtOption: UseYapperDialogOptions = {};
+
+export const useYapperDialog = ({ layerGetter }: UseYapperDialogOptions = defualtOption): DialogApi => {
 	const [activeDialog, setActiveDialog] = useState<ActiveDialog<unknown, object>>();
 	const showDialog = useCallback(<TData, TArgs extends object>(dialogDefinition: DialogDefinition<TData, TArgs>) => {
 		const newActiveDialog = new ActiveDialog<TData, TArgs>(dialogDefinition);

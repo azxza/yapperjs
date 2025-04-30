@@ -90,6 +90,7 @@
     grid-area: message;
     display: flex;
     justify-content: center;
+    margin: 0 8px;
 }
 .yapper__dialog_confirm__footer {
     grid-area: footer;
