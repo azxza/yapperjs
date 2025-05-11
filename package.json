@@ -1,15 +1,16 @@
 {
   "name": "yapperjs",
   "private": false,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "lint": "eslint .",
+    "prebuild": "rimraf dist",
     "build": "bun build.ts && bun run build:declaration",
-    "build:declaration": "tsc --emitDeclarationOnly --project tsconfig.types.json",
-    "postbuild": "rimraf tsconfig.types.tsbuildinfo"
+    "postbuild": "rimraf tsconfig.types.tsbuildinfo",
+    "build:declaration": "tsc --emitDeclarationOnly --project tsconfig.types.json"
   },
   "dependencies": {
     "classnames": "^2.5.1"
@@ -20,7 +21,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
-    "@types/bun": "^1.2.11",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "eslint": "^9.22.0",

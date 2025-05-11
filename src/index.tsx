@@ -1,3 +1,3 @@
 import "./style.css";
-export type * from "./types";
+export type {YapperDialogContentProps, YapperDialogDefinition, YapperApi} from "./types";
 export * from "./use-dialog-api";

@@ -1,20 +1,45 @@
-import { useCallback, useState } from "react";
-import { ActiveDialog, DialogApi, DialogDefinition } from "./types";
+import { useCallback, useMemo, useState } from "react";
+import { ActiveDialog, YapperApi, YapperDialogDefinition } from "./types";
 import { createPortal } from "react-dom";
 import { Backdrop, Positioner, Root } from "./components";
-import { PromptDialog } from "./premade-dialogs/prompt-dialog";
-import { ConfirmDialog } from "./premade-dialogs/confirm-dialog";
-import React from "react";
 
 export type UseYapperDialogOptions = {
+	/**
+	 * optional: return an html element to be used as the rendering layer of the dialog,
+	 * the dialog will be rendered inside it.
+	 * 
+	 * if ommited, the dialog will be rendererd directly into the <body> element
+	 */
     layerGetter?: () => HTMLElement;
 };
 
 const defualtOption: UseYapperDialogOptions = {};
 
-export const useYapperDialog = ({ layerGetter }: UseYapperDialogOptions = defualtOption): DialogApi => {
+/**
+ * provides an api object to use dialogs in your function flow
+ * 
+ * @example
+ * ```tsx
+ *function MyComponent({submitData}) {
+ *	const yapperApi = useYapperDialog();
+ * 	return <>
+ *  	<button
+ *  	onClick={async function () {
+ *      	if (!await yapperApi.showDialog({content: ConfirmationDialog})) {
+ *         		return;
+ *       	}
+ *       	await submitData();
+ *     	}}>
+ *     		Submit
+ *   	</button>
+ *   	<yapperApi.renderer/>
+ * 	</>;
+ *}
+ * ```
+ */
+export const useYapperDialog = ({ layerGetter }: UseYapperDialogOptions = defualtOption): YapperApi => {
 	const [activeDialog, setActiveDialog] = useState<ActiveDialog<unknown, object>>();
-	const showDialog = useCallback(<TData, TArgs extends object>(dialogDefinition: DialogDefinition<TData, TArgs>) => {
+	const showDialog = useCallback(<TData, TArgs extends object>(dialogDefinition: YapperDialogDefinition<TData, TArgs>) => {
 		const newActiveDialog = new ActiveDialog<TData, TArgs>(dialogDefinition);
 		if (activeDialog) {
 			newActiveDialog.parentDialog = activeDialog;
@@ -32,23 +57,7 @@ export const useYapperDialog = ({ layerGetter }: UseYapperDialogOptions = defual
 		}
 	}, [activeDialog]);
 
-	const prompt = useCallback((message: React.ReactNode, title: React.ReactNode = '') => {
-		return showDialog({
-            content: PromptDialog,
-            args: { message, title },
-		});
-	}, [showDialog]);
-
-	const confirm = useCallback((message: React.ReactNode, title: React.ReactNode = '') => {
-		return showDialog({
-            content: ConfirmDialog,
-            args: {message, title},
-		});
-	}, [showDialog]);
-
-	const dialogApi: DialogApi = {
-		prompt,
-		confirm,
+	const dialogApi: YapperApi = useMemo(() => ({
 		showDialog,
 		cancelActiveDialog,
 		renderer() {
@@ -75,6 +84,6 @@ export const useYapperDialog = ({ layerGetter }: UseYapperDialogOptions = defual
             const portal = createPortal(renderedDialog, dialogLayer);
 			return portal;
 		},
-	};
+	}), [activeDialog, cancelActiveDialog, layerGetter, showDialog]);
 	return dialogApi;
 };

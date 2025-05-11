@@ -1,5 +1,5 @@
 import type { CSSProperties, FC, PropsWithChildren, ReactNode } from "react";
-import type { DialogContentProps } from "./dialog-content-props";
+import type { YapperDialogContentProps } from "./dialog-content-props";
 
 type BackdropOptions = {
 	/**
@@ -21,12 +21,12 @@ type ContentOptions<TData, TArgs extends object> = {
     /**
 	 * content of the dialog
 	 */
-    content: FC<DialogContentProps<TData> & TArgs>;
+    content: FC<YapperDialogContentProps<TData> & TArgs>;
 } & (keyof TArgs extends never ? object : {
     /**
      * additional args to send to the content component of the dialog
      */
-    args: Omit<TArgs, keyof DialogContentProps<TData>>
+    args: Omit<TArgs, keyof YapperDialogContentProps<TData>>
 });
 
 type PositionerOptions = {
@@ -52,7 +52,7 @@ type WrapperOptions = {
 /**
  * definition of a dialog, dictates how it will look and behave.
  */
-export type DialogDefinition<TData, TArgs extends object> = BackdropOptions &
+export type YapperDialogDefinition<TData, TArgs extends object> = BackdropOptions &
     ContentOptions<TData, TArgs> &
     PositionerOptions &
     WrapperOptions;

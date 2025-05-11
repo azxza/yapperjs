@@ -1,4 +1,4 @@
-import type { DialogDefinition } from "./dialog-definition";
+import type { YapperDialogDefinition } from "./dialog-definition";
 
 export class ActiveDialog<TData, TArgs extends object> {
     private _resolve: (value?: TData | undefined) => void = () => {};
@@ -11,7 +11,7 @@ export class ActiveDialog<TData, TArgs extends object> {
     };
 	public readonly promise: Promise<TData | undefined>;
 	public parentDialog?: ActiveDialog<unknown, object>;
-	constructor(public readonly definition: DialogDefinition<TData, TArgs>) {
+	constructor(public readonly definition: YapperDialogDefinition<TData, TArgs>) {
 		this.promise = new Promise<TData | undefined>((resolve, reject) => {
 			this._resolve = (value) => resolve(value);
             this._reject = (error) => reject(error);
