@@ -1,5 +1,6 @@
-import { PropsWithChildren } from "react";
+import React from "react";
 import { ActiveDialog } from "../types";
+import { PropsWithChildren } from "react";
 import { YapperDialogContext } from "../yapper-dialog.context";
 
 type Props = PropsWithChildren<{

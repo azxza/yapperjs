@@ -1,12 +1,13 @@
 {
   "name": "yapperjs",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "lint": "eslint .",
+    "prepack": "bun run build",
     "prebuild": "rimraf dist",
     "build": "bun build.ts && bun run build:declaration",
     "postbuild": "rimraf tsconfig.types.tsbuildinfo",
@@ -31,5 +32,5 @@
     "typescript-eslint": "^8.26.1"
   },
   "keywords": ["react", "dialogs", "yap"],
-  "files": ["README.md", "dist"]
+  "files": ["README.md", "dist", "src"]
 }

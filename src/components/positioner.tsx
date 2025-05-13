@@ -1,3 +1,4 @@
+import React from "react";
 import classNames from "classnames";
 import { PropsWithChildren } from "react";
 import { useYapperDialogContext } from "../yapper-dialog.context";

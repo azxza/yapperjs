@@ -1,3 +1,4 @@
+import React from "react";
 import { useCallback, useMemo, useState } from "react";
 import { ActiveDialog, YapperApi, YapperDialogDefinition } from "./types";
 import { createPortal } from "react-dom";
@@ -61,7 +62,7 @@ export const useYapperDialog = ({ layerGetter }: UseYapperDialogOptions = defual
 		showDialog,
 		cancelActiveDialog,
 		renderer() {
-            const dialogLayer = layerGetter?.() ?? document.body;
+
             const renderedDialog = <>
                 {activeDialog && <Root activeDialog={activeDialog}>
 					<Backdrop/>
@@ -81,6 +82,10 @@ export const useYapperDialog = ({ layerGetter }: UseYapperDialogOptions = defual
 					</Positioner>
 				</Root>}
             </>;
+			if (!layerGetter?.() && typeof document === 'undefined') {
+				return null;
+			}
+            const dialogLayer = layerGetter?.() ?? document?.body;
             const portal = createPortal(renderedDialog, dialogLayer);
 			return portal;
 		},
