@@ -17,17 +17,27 @@ type BackdropOptions = {
     backdrop: ReactNode;
 };
 
-type ContentOptions<TData, TArgs extends object> = {
+type ExtractArgsType<T, TData> = T extends FC<YapperDialogContentProps<TData> & infer U>
+    ? U extends YapperDialogContentProps<TData>
+        ? void  // If U is exactly YapperDialogContentProps<TData>, then no additional args
+        : U     // Otherwise, U contains the additional args
+    : void;
+
+type ContentOptions<TData, TContent = FC<YapperDialogContentProps<TData>>> = keyof ExtractArgsType<TContent, TData> extends never ? {
     /**
 	 * content of the dialog
 	 */
-    content: FC<YapperDialogContentProps<TData> & TArgs>;
-} & (keyof TArgs extends never ? object : {
+    content: TContent;
+} : {
+    /**
+	 * content of the dialog
+	 */
+    content: TContent;
     /**
      * additional args to send to the content component of the dialog
      */
-    args: Omit<TArgs, keyof YapperDialogContentProps<TData>>
-});
+    args: ExtractArgsType<TContent, TData>;
+};
 
 type PositionerOptions = {
     /**
@@ -52,7 +62,7 @@ type WrapperOptions = {
 /**
  * definition of a dialog, dictates how it will look and behave.
  */
-export type YapperDialogDefinition<TData, TArgs extends object> = BackdropOptions &
-    ContentOptions<TData, TArgs> &
+export type YapperDialogDefinition<TData, TArgs> = BackdropOptions &
+    ContentOptions<TData, FC<YapperDialogContentProps<TData> & TArgs>> &
     PositionerOptions &
     WrapperOptions;

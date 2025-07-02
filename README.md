@@ -30,6 +30,12 @@ pnpm add yapperjs
 bun add yapperjs
 ```
 
+**Important**: Don't forget to import the CSS styles in your application:
+```tsx
+import 'yapperjs/dist/index.css';
+```
+This import is required for the dialogs to display properly.
+
 ## Key Benefits
 
 - **Promise-based API**: Treat dialogs as awaitable operations
@@ -213,6 +219,34 @@ const result = await yapperApi.showDialog({
 });
 ```
 
+For global styling, YapperJS provides these CSS classes that you can override:
+
+- `.yapper__dialog_backdrop` - The backdrop/overlay behind the dialog
+- `.yapper__dialog_positioner` - The container that positions the dialog content
+
+Note: These classes already have default styles applied by YapperJS. To override them, ensure your CSS has higher specificity or is loaded after the YapperJS styles:
+
+```css
+/* Example: Override default dialog styling */
+/* Option 1: Use higher specificity */
+body .yapper__dialog_backdrop {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(2px);
+}
+
+/* Option 2: Ensure your CSS loads after YapperJS styles */
+.yapper__dialog_backdrop {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(2px);
+}
+
+.yapper__dialog_positioner {
+  padding: 2rem !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+```
 ## TypeScript Support
 
 YapperJS is built with TypeScript and provides full type safety:

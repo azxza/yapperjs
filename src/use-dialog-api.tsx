@@ -62,7 +62,6 @@ export const useYapperDialog = ({ layerGetter }: UseYapperDialogOptions = defual
 		showDialog,
 		cancelActiveDialog,
 		renderer() {
-
             const renderedDialog = <>
                 {activeDialog && <Root activeDialog={activeDialog}>
 					<Backdrop/>
@@ -89,6 +88,6 @@ export const useYapperDialog = ({ layerGetter }: UseYapperDialogOptions = defual
             const portal = createPortal(renderedDialog, dialogLayer);
 			return portal;
 		},
-	}), [activeDialog, cancelActiveDialog, layerGetter, showDialog]);
+	} as YapperApi), [activeDialog, cancelActiveDialog, layerGetter, showDialog]);
 	return dialogApi;
 };
