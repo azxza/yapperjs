@@ -1,7 +1,7 @@
 {
   "name": "yapperjs",
   "private": false,
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "module",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,12 +13,16 @@
     "postbuild": "rimraf tsconfig.types.tsbuildinfo",
     "build:declaration": "tsc --emitDeclarationOnly --project tsconfig.types.json"
   },
+  "exports": {
+    ".": "./dist/index.js",
+    "./styles.css": "./dist/index.css" 
+  },
   "dependencies": {
     "classnames": "^2.5.1"
   },
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^19",
+    "react-dom": "^19"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
