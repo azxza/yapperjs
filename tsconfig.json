@@ -18,10 +18,7 @@
     "jsxImportSource": "react",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "allowJs": true,
-    "types": [
-      "bun-types"
-    ]
+    "allowJs": true
   },
   "include": [
     "src"
