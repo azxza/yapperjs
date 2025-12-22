@@ -41,6 +41,9 @@ const defualtOption: UseYapperDialogOptions = {};
 export const useYapperDialog = ({ layerGetter }: UseYapperDialogOptions = defualtOption): YapperApi => {
 	const [activeDialog, setActiveDialog] = useState<ActiveDialog<unknown, object>>();
 	const showDialog = useCallback(<TData, TArgs extends object>(dialogDefinition: YapperDialogDefinition<TData, TArgs>) => {
+		if (!('cancelOnBackdropClick' in dialogDefinition)) {
+			(dialogDefinition as { cancelOnBackdropClick?: boolean }).cancelOnBackdropClick = true;
+		}
 		const newActiveDialog = new ActiveDialog<TData, TArgs>(dialogDefinition);
 		if (activeDialog) {
 			newActiveDialog.parentDialog = activeDialog;

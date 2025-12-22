@@ -1,7 +1,9 @@
 import type { CSSProperties, FC, PropsWithChildren, ReactNode } from "react";
 import type { YapperDialogContentProps } from "./dialog-content-props";
 
-type BackdropOptions = {
+
+
+type BackdropOptions = (({
 	/**
 	 * classname to add to the backdrop
 	 */
@@ -10,12 +12,21 @@ type BackdropOptions = {
 	 * style to add to the backdrop
 	 */
 	backdropStyle?: CSSProperties;    
-} | {
+    /**
+     * handler to call when the backdrop is clicked,
+     * overrides cancelOnBackdropClick
+     */
+    backdropClickHandler?: () => void;
+    /**
+     * if true, clicking the backdrop will cancel the dialog
+     */
+    cancelOnBackdropClick?: boolean;
+}) | {
     /**
      * backdrop to replace the default backdrop
      */
     backdrop: ReactNode;
-};
+});
 
 type ExtractArgsType<T, TData> = T extends FC<YapperDialogContentProps<TData> & infer U>
     ? U extends YapperDialogContentProps<TData>

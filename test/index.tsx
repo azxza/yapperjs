@@ -21,7 +21,7 @@ const TestDialog: React.FC<YapperDialogContentProps<Table>> = ({
         display: 'flex',
         flexDirection: 'column',
         gap: 12,
-        background: 'steel',
+        background: 'steelblue',
     }}>
         <label htmlFor='name'>Name:</label>
         <input type='text' name='name' placeholder='table name...' required/>

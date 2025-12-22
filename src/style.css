@@ -18,4 +18,8 @@
     display: grid;
     place-content: center;
     transform: translateY(0);/*force creation of a new stacking context*/
+    pointer-events: none;
+    &>* {
+        pointer-events: all;
+    }
 }
