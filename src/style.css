@@ -17,7 +17,7 @@
     height: 100vh;
     display: grid;
     place-content: center;
-    transform: translateY(0);/*force creation of a new stacking context*/
+    isolation: isolate;
     pointer-events: none;
     &>* {
         pointer-events: all;
